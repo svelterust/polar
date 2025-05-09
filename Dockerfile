@@ -1,6 +1,6 @@
 ARG ELIXIR_VERSION=1.18.3
 ARG OTP_VERSION=27.3.3
-ARG DEBIAN_VERSION=bullseye-20250428-slim
+ARG DEBIAN_VERSION=bookworm-20250428-slim
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 ARG RUNNER_IMAGE="oven/bun:1.2.12-slim"
@@ -52,16 +52,12 @@ COPY rel rel
 RUN mix release
 
 # Setup the runtime environment
-FROM ${RUNNER_IMAGE} AS runtime
+FROM ${RUNNER_IMAGE}
 
 # Install runtime dependencies
 RUN apt-get update -y && \
     apt-get install -y libstdc++6 openssl libncurses5 locales ca-certificates \
     && apt-get clean && rm -f /var/lib/apt/lists/*_*
-
-# Copy OpenSSL libs from builder for Erlang crypto compatibility
-COPY --from=builder /usr/lib/*-linux-gnu/libcrypto.so* /usr/lib/
-COPY --from=builder /usr/lib/*-linux-gnu/libssl.so* /usr/lib/
 
 # Configure locale settings
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen

@@ -2,7 +2,7 @@ defmodule Polar.Items.Item do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, only: [:title, :description, :inserted_at]}
+  @derive {Jason.Encoder, only: [:id, :title, :description, :inserted_at]}
 
   schema "items" do
     field :title, :string

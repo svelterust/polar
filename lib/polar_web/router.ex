@@ -14,7 +14,8 @@ defmodule PolarWeb.Router do
   scope "/", PolarWeb do
     pipe_through :browser
 
-    get "/", PageController, :items_page
-    post "/", PageController, :items
+    get "/", PageController, :items
+    post "/", PageController, :create_item
+    delete "/:id", PageController, :delete_item
   end
 end

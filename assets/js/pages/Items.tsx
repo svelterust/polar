@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "@inertiajs/react";
 
 type Item = {
+  id: number;
   title: string;
   description: string;
   inserted_at: string;
@@ -21,22 +22,28 @@ function formatDate(dateString: string) {
 }
 
 const Index = ({ items }: Props) => {
-  // Form
+  // Create item
   const { data, setData, post, processing, errors, reset } = useForm({
     title: "",
     description: "",
   });
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const createItem = (event: React.FormEvent) => {
     event.preventDefault();
     post("/", { onSuccess: () => reset() });
+  };
+
+  // Delete item
+  const { delete: destroy } = useForm();
+  const deleteItem = (id: number) => {
+    destroy(`/${id}`, { preserveScroll: true });
   };
 
   return (
     <>
       <h1 className="text-3xl font-bold mb-6">Create Item</h1>
       <div className="mb-8 max-w-screen-sm">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={createItem}>
           <div className="form-control mb-4">
             <span className="label-text">Title</span>
             <input
@@ -96,6 +103,12 @@ const Index = ({ items }: Props) => {
                     {formatDate(item.inserted_at)}
                   </div>
                 </div>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => deleteItem(item.id)}
+                >
+                  Delete Item
+                </button>
               </div>
             </div>
           ))

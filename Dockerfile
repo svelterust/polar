@@ -52,12 +52,16 @@ COPY rel rel
 RUN mix release
 
 # Setup the runtime environment
-FROM ${RUNNER_IMAGE}
+FROM ${RUNNER_IMAGE} AS runtime
 
 # Install runtime dependencies
 RUN apt-get update -y && \
     apt-get install -y libstdc++6 openssl libncurses5 locales ca-certificates \
     && apt-get clean && rm -f /var/lib/apt/lists/*_*
+
+# Copy OpenSSL libs from builder for Erlang crypto compatibility
+COPY --from=builder /usr/lib/*-linux-gnu/libcrypto.so* /usr/lib/
+COPY --from=builder /usr/lib/*-linux-gnu/libssl.so* /usr/lib/
 
 # Configure locale settings
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
@@ -74,7 +78,7 @@ ENV MIX_ENV=prod
 ENV NODE_ENV=production
 
 # Copy only the compiled release
-COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/polar ./
+COPY --from=builder /app/_build/${MIX_ENV}/rel/polar ./
 
 # Start the application
 CMD ["/app/bin/server"]

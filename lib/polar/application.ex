@@ -13,6 +13,7 @@ defmodule Polar.Application do
        repos: Application.fetch_env!(:polar, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:polar, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Polar.PubSub},
+      {Inertia.SSR, path: Path.join([Application.app_dir(:polar), "priv"])},
       PolarWeb.Endpoint
     ]
 

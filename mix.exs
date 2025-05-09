@@ -62,10 +62,11 @@ defmodule Polar.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind polar", "esbuild polar"],
+      "assets.build": ["tailwind polar", "esbuild polar", "esbuild ssr"],
       "assets.deploy": [
         "tailwind polar --minify",
         "esbuild polar --minify",
+        "esbuild ssr --minify",
         "phx.digest"
       ]
     ]

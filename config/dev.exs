@@ -23,6 +23,7 @@ config :polar, PolarWeb.Endpoint,
   secret_key_base: "4acj2xhtwUTMoPwQisx0LZyglvzfw9LqWmJeLFdRmnnyNj08mrCUPjrj+43gNBVB",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:polar, ~w(--sourcemap=inline --watch)]},
+    ssr: {Esbuild, :install_and_run, [:ssr, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:polar, ~w(--watch)]}
   ]
 

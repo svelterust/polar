@@ -9,6 +9,6 @@ defmodule PolarWeb.PageController do
 
   defp fetch_items do
     Process.sleep(1000)
-    ["Item 1", "Item 2", "Item 3"]
+    Enum.map(1..Enum.random(5..10), fn i -> "Item #{i}" end)
   end
 end

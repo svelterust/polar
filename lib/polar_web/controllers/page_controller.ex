@@ -23,18 +23,7 @@ defmodule PolarWeb.PageController do
   end
 
   def delete_item(conn, %{"id" => id}) do
-    item = Items.get_item!(id)
-
-    case Items.delete_item(item) do
-      {:ok, _item} ->
-        conn
-        |> put_flash(:info, "Item deleted successfully.")
-        |> redirect(to: ~p"/")
-
-      {:error, _changeset} ->
-        conn
-        |> put_flash(:error, "Item could not be deleted.")
-        |> redirect(to: ~p"/")
-    end
+    {:ok, _item} = Items.get_item!(id) |> Items.delete_item()
+    redirect(conn, to: ~p"/")
   end
 end

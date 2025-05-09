@@ -1,27 +1,22 @@
 import React from "react";
-import { useState } from "react";
+import { Link } from "@inertiajs/react";
 
 type Props = {
   items: string[];
 };
 
 const Index = ({ items }: Props) => {
-  // Counter
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <h1 className="text-3xl font-semibold">Check out these items:</h1>
-      <div className="flex items-center gap-4">
-        <button className="btn mt-2" onClick={() => setCount(count + 1)}>
-          Counter: {count}
-        </button>
-      </div>
-      <ul className="list-disc list-inside mt-2">
+      <ul className="list-disc list-inside mt-4">
         {items.map((item, index) => (
           <li key={index}>{item}</li>
         ))}
       </ul>
+      <Link className="btn mt-4" href="/cars">
+        Go to cars
+      </Link>
     </>
   );
 };

@@ -15,5 +15,6 @@ defmodule PolarWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/cars", PageController, :cars
   end
 end

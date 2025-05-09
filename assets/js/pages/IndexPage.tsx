@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "@inertiajs/react";
 
 type Props = {
   items: string[];
@@ -14,9 +13,6 @@ const Index = ({ items }: Props) => {
           <li key={index}>{item}</li>
         ))}
       </ul>
-      <Link className="btn mt-4" href="/cars">
-        Go to cars
-      </Link>
     </>
   );
 };

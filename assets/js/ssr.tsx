@@ -6,6 +6,7 @@ export function render(page) {
   return createInertiaApp({
     page,
     render: ReactDOMServer.renderToString,
+    title: (title) => (title ? `${title} - Polar` : "Polar"),
     resolve: async (name) => {
       return await import(`./pages/${name}.tsx`);
     },

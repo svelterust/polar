@@ -2,6 +2,8 @@ defmodule PolarWeb.PageController do
   use PolarWeb, :controller
 
   def index(conn, _params) do
-    render_inertia(conn, "Index")
+    conn
+    |> assign_prop(:items, ["Item 1", "Item 2", "Item 3"])
+    |> render_inertia("Index")
   end
 end

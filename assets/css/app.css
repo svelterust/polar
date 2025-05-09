@@ -1,7 +1,8 @@
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
 @import "@fontsource/geist-sans";
+@plugin "@tailwindcss/typography";
 @plugin "@egoist/tailwindcss-icons";
+@plugin "daisyui";
 
 body {
     font-family: "Geist", sans-serif;

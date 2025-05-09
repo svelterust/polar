@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useForm } from "@inertiajs/react";
+import React from "react";
+import { router, useForm } from "@inertiajs/react";
 
 type Item = {
   id: number;
   title: string;
-  description: string;
+  description?: string;
   inserted_at: string;
 };
 
@@ -12,36 +12,32 @@ type Props = {
   items: Item[];
 };
 
-function formatDate(dateString: string) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
-
-const Index = ({ items }: Props) => {
-  // Create item
+const Items = ({ items }: Props) => {
+  // Create item form
   const { data, setData, post, processing, errors, reset } = useForm({
     title: "",
     description: "",
   });
-
   const createItem = (event: React.FormEvent) => {
     event.preventDefault();
     post("/", { onSuccess: () => reset() });
   };
+  const deleteItem = (id: number) =>
+    router.visit(`/${id}`, { method: "delete", preserveScroll: true });
 
-  // Delete item
-  const { delete: destroy } = useForm();
-  const deleteItem = (id: number) => {
-    destroy(`/${id}`, { preserveScroll: true });
+  // Date formatting
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
 
   return (
     <>
-      <h1 className="text-3xl font-bold mb-6">Create Item</h1>
+      <h1 className="text-3xl font-bold mb-2">Create Item</h1>
       <div className="mb-8 max-w-screen-sm">
         <form onSubmit={createItem}>
           <div className="form-control mb-4">
@@ -96,17 +92,18 @@ const Index = ({ items }: Props) => {
               className="card border border-slate-300 transition duration-200"
             >
               <div className="card-body">
-                <h2 className="card-title">{item.title}</h2>
-                <p>{item.description}</p>
-                <div className="card-actions">
-                  <div className="badge badge-primary">
+                <div className="flex items-center gap-2">
+                  <h2 className="card-title">{item.title}</h2>
+                  <div className="badge badge-info">
                     {formatDate(item.inserted_at)}
                   </div>
                 </div>
+                {item.description && <p>{item.description}</p>}
                 <button
-                  className="btn btn-secondary"
+                  className="btn btn-remove"
                   onClick={() => deleteItem(item.id)}
                 >
+                  <span className="i-lucide-trash" />
                   Delete Item
                 </button>
               </div>
@@ -123,4 +120,4 @@ const Index = ({ items }: Props) => {
   );
 };
 
-export default Index;
+export default Items;

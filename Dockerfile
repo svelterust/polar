@@ -10,7 +10,7 @@ FROM ${RUNNER_IMAGE} AS bun
 
 WORKDIR /app/assets
 COPY assets .
-RUN bun install --production
+RUN bun install
 
 # Setup the Elixir build environment
 FROM ${BUILDER_IMAGE} AS builder
@@ -34,11 +34,12 @@ RUN mkdir config
 COPY config/config.exs config/${MIX_ENV}.exs config/
 RUN mix deps.compile
 
-# Copy application code
+# Copy application code + Bun for assets.deploy
 COPY priv priv
 COPY lib lib
 COPY assets assets
 COPY --from=bun /app/assets ./assets
+COPY --from=bun /usr/local/bin/bun /usr/local/bin/
 
 # Compile Elixir application
 RUN mix assets.deploy

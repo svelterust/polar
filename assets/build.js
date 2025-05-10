@@ -7,68 +7,68 @@ const deploy = args.includes("--deploy");
 const ssr = args.includes("--ssr");
 
 const clientOpts = {
-  entryPoints: ["js/app.js"],
-  bundle: true,
-  minify: deploy,
-  sourcemap: watch && "inline",
-  logLevel: "info",
-  target: "es2020",
-  outdir: "../priv/static/assets",
-  external: ["*.css", "fonts/*", "images/*"],
-  nodePaths: ["../deps"],
-  conditions: ["svelte"],
-  treeShaking: true,
-  splitting: true,
-  format: "esm",
-  chunkNames: "chunks/[name]-[hash]",
-  plugins: [
-    sveltePlugin({
-      compilerOptions: {
-        dev: watch,
-        hydratable: true,
-        generate: "dom",
-        css: "external",
-      },
-    }),
-  ],
+    entryPoints: ["js/app.js"],
+    bundle: true,
+    minify: deploy,
+    sourcemap: watch && "inline",
+    logLevel: "info",
+    target: "es2020",
+    outdir: "../priv/static/assets",
+    external: ["*.css", "fonts/*", "images/*"],
+    nodePaths: ["../deps"],
+    conditions: ["svelte"],
+    treeShaking: true,
+    splitting: true,
+    format: "esm",
+    chunkNames: "chunks/[name]-[hash]",
+    plugins: [
+        sveltePlugin({
+            compilerOptions: {
+                dev: watch,
+                hydratable: true,
+                generate: "dom",
+                css: "external",
+            },
+        }),
+    ],
 };
 
 const serverOpts = {
-  entryPoints: ["js/ssr.js"],
-  bundle: true,
-  minify: false,
-  sourcemap: watch && "inline",
-  logLevel: "info",
-  platform: "node",
-  format: "cjs",
-  outdir: "../priv",
-  external: ["*.css", "fonts/*", "images/*"],
-  nodePaths: ["../deps"],
-  conditions: ["svelte"],
-  treeShaking: true,
-  plugins: [
-    sveltePlugin({
-      compilerOptions: {
-        dev: watch,
-        hydratable: true,
-        generate: "ssr",
-        css: "external",
-      },
-    }),
-  ],
+    entryPoints: ["js/ssr.js"],
+    bundle: true,
+    minify: deploy,
+    sourcemap: watch && "inline",
+    logLevel: "info",
+    platform: "node",
+    format: "cjs",
+    outdir: "../priv",
+    external: ["*.css", "fonts/*", "images/*"],
+    nodePaths: ["../deps"],
+    conditions: ["svelte"],
+    treeShaking: true,
+    plugins: [
+        sveltePlugin({
+            compilerOptions: {
+                dev: watch,
+                hydratable: true,
+                generate: "ssr",
+                css: "external",
+            },
+        }),
+    ],
 };
 
 const opts = ssr ? serverOpts : clientOpts;
 
 if (watch) {
-  esbuild
-    .context(opts)
-    .then((ctx) => {
-      ctx.watch();
-    })
-    .catch((_error) => {
-      process.exit(1);
-    });
+    esbuild
+        .context(opts)
+        .then((ctx) => {
+            ctx.watch();
+        })
+        .catch((_error) => {
+            process.exit(1);
+        });
 } else {
-  esbuild.build(opts);
+    esbuild.build(opts);
 }

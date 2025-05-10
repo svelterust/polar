@@ -40,7 +40,6 @@ defmodule Polar.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 1.0.0"},
       {:floki, ">= 0.30.0", only: :test},
-      {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.3", runtime: Mix.env() == :dev},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
@@ -61,12 +60,16 @@ defmodule Polar.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind polar", "esbuild polar", "esbuild ssr"],
+      "assets.setup": ["tailwind.install --if-missing"],
+      "assets.build": [
+        "tailwind polar",
+        "cmd --cd assets node build.js",
+        "cmd --cd assets node build.js --ssr"
+      ],
       "assets.deploy": [
         "tailwind polar --minify",
-        "esbuild polar --minify",
-        "esbuild ssr --minify",
+        "cmd --cd assets node build.js --deploy",
+        "cmd --cd assets node build.js --deploy --ssr",
         "phx.digest"
       ]
     ]

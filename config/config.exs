@@ -27,29 +27,14 @@ config :inertia,
   camelize_props: true,
   ssr: true
 
-config :esbuild,
-  version: "0.21.5",
-  polar: [
-    args:
-      ~w(js/app.tsx --bundle --chunk-names=chunks/[name]-[hash] --splitting --format=esm --target=es2020 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
-    cd: Path.expand("../assets", __DIR__),
-    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
-  ],
-  ssr: [
-    args: ~w(js/ssr.tsx --bundle --platform=node --outdir=../priv --format=cjs),
-    cd: Path.expand("../assets", __DIR__),
-    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
-  ]
-
 # Configure tailwind (the version is required)
 config :tailwind,
   version: "4.1.4",
   path: System.find_executable("tailwindcss"),
   polar: [
     args: ~w(
-          --config=assets/tailwind.config.js
           --input=assets/css/app.css
-          --output=priv/static/assets/app.css
+          --output=priv/static/assets/tailwind.css
           --minify
         ),
     cd: Path.expand("..", __DIR__)

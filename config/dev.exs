@@ -1,5 +1,8 @@
 import Config
 
+# NodeJS
+System.put_env("NODE_ENV", "development")
+
 # Configure your database
 config :polar, Polar.Repo,
   database: Path.expand("../polar_dev.db", __DIR__),
@@ -22,8 +25,8 @@ config :polar, PolarWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "4acj2xhtwUTMoPwQisx0LZyglvzfw9LqWmJeLFdRmnnyNj08mrCUPjrj+43gNBVB",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:polar, ~w(--sourcemap=inline --watch)]},
-    ssr: {Esbuild, :install_and_run, [:ssr, ~w(--sourcemap=inline --watch)]},
+    node: ["build.js", "--watch", cd: Path.expand("../assets", __DIR__)],
+    node: ["build.js", "--watch", "--ssr", cd: Path.expand("../assets", __DIR__)],
     tailwind: {Tailwind, :install_and_run, [:polar, ~w(--watch)]}
   ]
 

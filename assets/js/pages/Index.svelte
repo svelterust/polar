@@ -4,6 +4,7 @@
 
 <svelte:head>
     <title>Hello, {name}!</title>
+    <meta name="description" content="Page for {name} with their items" />
 </svelte:head>
 
 <h1 class="text-2xl font-semibold">Hello, {name}!</h1>

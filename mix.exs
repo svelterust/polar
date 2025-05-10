@@ -63,13 +63,13 @@ defmodule Polar.MixProject do
       "assets.setup": ["tailwind.install --if-missing"],
       "assets.build": [
         "tailwind polar",
-        "cmd --cd assets node build.js",
-        "cmd --cd assets node build.js --ssr"
+        "cmd --cd assets bun build.js",
+        "cmd --cd assets bun build.js --ssr"
       ],
       "assets.deploy": [
         "tailwind polar --minify",
-        "cmd --cd assets node build.js --deploy",
-        "cmd --cd assets node build.js --deploy --ssr",
+        "cmd --cd assets bun build.js --deploy",
+        "cmd --cd assets bun build.js --deploy --ssr",
         "phx.digest"
       ]
     ]

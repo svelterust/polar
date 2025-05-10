@@ -17,6 +17,10 @@ const clientOpts = {
   external: ["*.css", "fonts/*", "images/*"],
   nodePaths: ["../deps"],
   conditions: ["svelte"],
+  treeShaking: true,
+  splitting: true,
+  format: "esm",
+  chunkNames: "chunks/[name]-[hash]",
   plugins: [
     sveltePlugin({
       compilerOptions: {
@@ -41,6 +45,7 @@ const serverOpts = {
   external: ["*.css", "fonts/*", "images/*"],
   nodePaths: ["../deps"],
   conditions: ["svelte"],
+  treeShaking: true,
   plugins: [
     sveltePlugin({
       compilerOptions: {

@@ -1,15 +1,16 @@
 {
-  "type": "module",
-  "dependencies": {
-    "@egoist/tailwindcss-icons": "^1.9.0",
-    "@fontsource/geist-sans": "^5.2.5",
-    "@iconify-json/lucide": "^1.2.41",
-    "@inertiajs/svelte": "^2.0.9",
-    "@tailwindcss/typography": "^0.5.16",
-    "daisyui": "^5.0.35"
-  },
-  "devDependencies": {
-    "esbuild": "^0.25.4",
-    "esbuild-svelte": "^0.9.2"
-  }
+    "type": "module",
+    "dependencies": {
+        "@egoist/tailwindcss-icons": "^1.9.0",
+        "@fontsource/geist-sans": "^5.2.5",
+        "@iconify-json/lucide": "^1.2.41",
+        "@inertiajs/svelte": "^2.0.9",
+        "@tailwindcss/typography": "^0.5.16",
+        "axios": "^1.9.0",
+        "daisyui": "^5.0.35"
+    },
+    "devDependencies": {
+        "esbuild": "^0.25.4",
+        "esbuild-svelte": "^0.9.2"
+    }
 }

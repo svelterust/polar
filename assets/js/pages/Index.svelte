@@ -1,5 +1,14 @@
 <script>
+    import { useForm } from "@inertiajs/svelte";
+
+    // Props
     const { name, items } = $props();
+
+    // Form
+    let form = useForm({
+        name: "",
+        email: "",
+    });
 </script>
 
 <svelte:head>

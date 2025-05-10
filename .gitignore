@@ -33,7 +33,6 @@ polar-*.tar
 
 # In case you use Node.js/npm, you want to ignore these.
 npm-debug.log
-/assets/node_modules/
 
 # Database files
 *.db
@@ -41,3 +40,4 @@ npm-debug.log
 
 # SSR
 /priv/ssr.js
+node_modules

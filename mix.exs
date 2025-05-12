@@ -67,7 +67,7 @@ defmodule Polar.MixProject do
         "cmd --cd assets bun build.js --ssr"
       ],
       "assets.deploy": [
-        "tailwind polar --minify",
+        "tailwind polar",
         "cmd --cd assets bun build.js --deploy",
         "cmd --cd assets bun build.js --deploy --ssr",
         "phx.digest"

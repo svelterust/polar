@@ -8,7 +8,6 @@ ARG RUNNER_IMAGE="oven/bun:1.2.12-slim"
 # Setup the frontend build environment
 FROM ${RUNNER_IMAGE} AS bun
 
-ENV NODE_ENV=production
 WORKDIR /app/assets
 COPY assets .
 RUN bun install
@@ -27,7 +26,6 @@ RUN mix local.hex --force && \
 
 # Install project dependencies
 ENV MIX_ENV=prod
-ENV NODE_ENV=production
 COPY mix.exs mix.lock ./
 RUN mix deps.get --only $MIX_ENV
 RUN mkdir config

@@ -37,7 +37,6 @@ RUN mix deps.compile
 # Copy application code + Bun for assets.deploy
 COPY priv priv
 COPY lib lib
-COPY assets assets
 COPY --from=bun /app/assets ./assets
 COPY --from=bun /usr/local/bin/bun /usr/local/bin/
 

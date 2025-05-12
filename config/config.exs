@@ -33,8 +33,8 @@ config :tailwind,
   path: System.find_executable("tailwindcss"),
   polar: [
     args: ~w(
-          --input=assets/app.css
-          --output=priv/static/assets/app.css
+          --input=assets/tailwind.css
+          --output=priv/static/assets/tailwind.css
           --minify
         ),
     cd: Path.expand("..", __DIR__)

@@ -42,6 +42,7 @@ COPY --from=bun /usr/local/bin/bun /usr/local/bin/
 
 # Compile Elixir application
 RUN mix assets.deploy
+RUN ls -lah priv/static/assets
 RUN mix compile
 
 # Runtime config handled separately

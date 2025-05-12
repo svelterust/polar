@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "js";
+@source "../lib/polar_web"
+
 @import "@fontsource/geist-sans";
 @plugin "@tailwindcss/typography";
 @plugin "@egoist/tailwindcss-icons";

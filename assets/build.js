@@ -1,5 +1,6 @@
 import esbuild from "esbuild";
 import sveltePlugin from "esbuild-svelte";
+import sveltePreprocess from "svelte-preprocess";
 
 const args = process.argv.slice(2);
 const watch = args.includes("--watch");
@@ -23,6 +24,7 @@ const clientOpts = {
     chunkNames: "chunks/[name]-[hash]",
     plugins: [
         sveltePlugin({
+            preprocess: sveltePreprocess(),
             compilerOptions: {
                 dev: watch,
                 hydratable: true,
@@ -48,6 +50,7 @@ const serverOpts = {
     treeShaking: true,
     plugins: [
         sveltePlugin({
+            preprocess: sveltePreprocess(),
             compilerOptions: {
                 dev: watch,
                 hydratable: true,

@@ -22,7 +22,7 @@ defmodule PolarWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :polar,
-    gzip: false,
+    gzip: true,
     only: PolarWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
